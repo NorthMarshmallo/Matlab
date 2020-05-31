@@ -1,0 +1,126 @@
+%%
+syms x; %%1.1
+k=[1 4 -2 -14 -3 -18];
+n=poly2sym(k,x);
+disp(n);
+q=factor(n);
+disp(q);
+
+%%
+syms x; %%1.2
+p=x^3+x^2*y+x^2-2*x*y^2+x*y-2*y^2;
+n=poly2sym(p,x);
+disp(n);
+q=factor(n);
+disp(q);
+
+%%
+f=x*exp(-x); %2.1
+n=limit(f,Inf);
+disp(n);
+
+f=tan(x).^(tan(2*x)); %2.2
+n=limit(f,pi./4);
+disp(n);
+
+f=1./(1-x); %2.3
+n=limit(f,x,1,'right');
+disp(n);
+
+%%
+f=atan(x)./2  -x./(2.*(1+x.^2).^2); %3.1
+q=diff(f);
+disp(q);
+w=simplify(q);
+disp(w);
+   
+f=3*x.^4-14*x.^3+12*x.^2+24*x+6; %3.2
+q=diff(f);
+disp(q);
+w=simplify(q);
+disp(w);
+   
+f=(sin(3*x)-cos(3*x)).^2; %3.3
+q=diff(f);
+disp(q);
+w=simplify(q);
+disp(w);
+
+%%
+f=sqrt(1-x.^2)./x.^2; %4.1
+i=int(f);
+disp(i);
+  
+f=1./(sin(x)).^3; %4.2
+i=int(f);
+disp(i);
+  
+f=(sin(2*x)+1).^(1./7).*cos(2*x); %4.3
+i=int(f);
+disp(i);
+
+%%
+syms k %5.1
+n=symsum(1./k.^k, k, 1, Inf);
+disp(n);
+ 
+syms n %5.2
+e=symsum((-1).^((n.^2+n)./2).*(n./2.^(n)), n, 0, Inf);
+disp(e);
+ 
+syms x w %5.3
+r=symsum(x.^(w), w, 0, Inf);
+disp(r);
+
+%%
+syms x     %6.1
+f=exp(x);n=5;a=0;
+fu=taylor(f,x,'ExpansionPoint',a,'Order',n);
+disp(fu);
+fplot([fu f])
+xlim([-10 10])
+ylim([-5 20])
+grid on
+
+legend('approximation of exp(x) up to O(x^{5})',...
+       'exp(x)','Location','Best')
+title('График и приближения')
+
+
+%%
+syms x     %6.2
+f=(sin(x)).^2;n=10;a=0;
+fu=taylor(f,x,'ExpansionPoint',a,'Order',n);
+disp(fu);
+fplot([fu f])
+xlim([-5 5])
+ylim([-10 10])
+grid on
+
+legend('approximation of (sin(x))^2 up to O(x^{10})',...
+       '(sin(x))^2','Location','Best')
+title('График и приближения')
+
+%%
+%function f=f4(x)
+%f=exp(1./(1-x.^2))./(1+x.^2);
+%end
+ 
+%function f=f5(x)
+%f=-exp(1./(1-x.^2))./(1+x.^2);
+%end
+
+a=-7; b=7;      %7         
+x=linspace(a,b,100);
+y=f4(x);
+plot(x,y); grid on;
+ylim([-10;350])
+xlabel('x'); ylabel('y'); title('f=exp(1/(1-x.^2))/(1+x.^2)');
+[xm,ym]=fminbnd(@f4,a,b);
+[xmax, ymax]=fminbnd(@f5,a,b);
+hold on;
+plot(xm,ym,'r*');
+plot(xmax,-ymax,'b*');
+xline(1,'g');
+xline(-1,'g');
+hold off;
