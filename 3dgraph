@@ -1,0 +1,226 @@
+%%
+y = -10:0.5:10; x = -10:0.5:10;  %1
+[X, Y] = meshgrid(x, y);
+%a=input();b=input();c=input();d=input();
+a=1;b=1;c=1;d=1;
+Z =(-a.*X-b.*Y-d)/c;
+figure
+surfc(X, Y, Z)
+view(18,-38);
+title('ax+by+cz+d=0');xlabel('x'); ylabel('y'); zlabel('z');
+pause(2);
+%%
+subplot(2,1,1);   %2ab
+[x,y]=meshgrid(-5*pi:pi/10:5*pi,-5*pi:pi/10:5*pi);
+z=a.*sin(sqrt(x.^2+y.^2))./sqrt(x.^2+y.^2);
+plot3(x,y,z); grid on;
+xlabel('X'),	ylabel('Y'), zlabel('Z'); 
+title('z=asin(sqrt(x^2+y^2))/sqrt(x^2+y^2)');
+subplot(2,1,2);
+z=-x.*sin(x)-y.*cos(y);
+mesh(x,y,z);
+xlabel('X'),	ylabel('Y'), zlabel('Z');
+title('-x*sin(x)-y*cos(y)');
+grid on;
+pause(2);
+%%
+subplot(3,1,1);   %3a
+a=1; %a=input()
+[x,y]=meshgrid(-2:0.1:2,-2:0.1:2);
+z=a.*x.*exp(-x.^2-y.^2);
+mesh(x,y,z); grid on;
+xlabel('X'),	ylabel('Y'), zlabel('Z'); 
+title('z=a*x*e^(-x^2-y^2)');
+subplot(3,1,2);
+xlabel('X'),	ylabel('Y'), zlabel('Z'); 
+surf(x,y,z);
+grid on;
+subplot(3,1,3);
+xlabel('X'),	ylabel('Y'), zlabel('Z'); 
+surfc(x,y,z);
+grid on;
+%%
+pause(2)                       %3b
+subplot(3,1,1); 
+a=2;c=1;
+[al,be]=meshgrid(-5*pi:pi/10:5*pi,-5*pi:pi/10:5*pi); 
+x=a*cosh(al).*cos(be);y=a*cosh(al).*sin(be);z=c*sinh(al);
+mesh(x,y,z); grid on;
+xlabel('X'),	ylabel('Y'), zlabel('Z'); 
+title('a*cosh(al)*cos(be);y=a*cosh(al)*sin(be);z=c*sinh(al);');
+subplot(3,1,2);
+xlabel('X'),	ylabel('Y'), zlabel('Z'); 
+surf(x,y,z);
+grid on;
+subplot(3,1,3);
+xlabel('X'),	ylabel('Y'), zlabel('Z'); 
+surfc(x,y,z);
+grid on;
+%%
+pause(2)                       %3c
+subplot(3,1,1); 
+r=-5*pi:pi/10:5*pi;
+p=2;
+[al,be]=meshgrid(-5*pi:pi/10:5*pi,-5*pi:pi/10:5*pi); 
+x=r.*cos(be);y=r.*sin(be);z=(r.^2)./(2*p*ones(size(be)));
+mesh(x,y,z);
+xlabel('X'),	ylabel('Y'), zlabel('Z'); 
+title('x=r*cos(be);y=r*sin(be);z=r.^2/(2*p)');
+subplot(3,1,2);
+xlabel('X'),	ylabel('Y'), zlabel('Z'); 
+surf(x,y,z);
+grid on;
+subplot(3,1,3);
+xlabel('X'),	ylabel('Y'), zlabel('Z'); 
+surfc(x,y,z);
+grid on;
+%%
+pause(2)                       %3d
+subplot(3,1,1); 
+a=1;b=1;
+[al,be]=meshgrid(-5:0.2:5,-pi:pi/10:pi); 
+x=a*al.*cosh(be);y=b*al.*sinh(be);z=(al.^2).*ones(size(be));
+mesh(x,y,z);
+view(-8,18);
+xlabel('X'),	ylabel('Y'), zlabel('Z'); 
+title('Гиперболический параболоид');
+subplot(3,1,2);
+xlabel('X'),	ylabel('Y'), zlabel('Z'); 
+surf(x,y,z);
+grid on;
+subplot(3,1,3);
+xlabel('X'),	ylabel('Y'), zlabel('Z'); 
+surfc(x,y,z);
+grid on;
+%%
+pause(2)                       %3e
+subplot(3,1,1); 
+a=1;
+[u,v]=meshgrid(0:0.5:5,-5:0.5:5); 
+x=a*u.^2;y=2*a*u;z=v.*ones(size(u));
+mesh(x,y,z);
+view(-8,18);
+xlabel('X'),	ylabel('Y'), zlabel('Z'); 
+title('Параболический цилиндр');
+subplot(3,1,2);
+xlabel('X'),	ylabel('Y'), zlabel('Z'); 
+surf(x,y,z);
+grid on;
+subplot(3,1,3);
+xlabel('X'),	ylabel('Y'), zlabel('Z'); 
+surfc(x,y,z);
+grid on;
+%%
+pause(2)                       %3f
+subplot(3,1,1); 
+a=1;
+[u,v]=meshgrid(0:pi/10:2*pi,0:pi/10:2*pi);  
+x=(a+b*cos(v)).*cos(u);y=(a+b*cos(v)).*sin(u);z=b.*sin(v);
+mesh(x,y,z);
+view(-8,18);
+xlabel('X'),	ylabel('Y'), zlabel('Z'); 
+title('Круговой тор');
+subplot(3,1,2);
+xlabel('X'),	ylabel('Y'), zlabel('Z'); 
+surf(x,y,z);
+grid on;
+subplot(3,1,3);
+xlabel('X'),	ylabel('Y'), zlabel('Z'); 
+surfc(x,y,z);
+grid on;
+%%
+pause(2)                       %3g
+subplot(1,3,1); 
+a=1;
+[u,v]=meshgrid(0:pi/10:2*pi,-pi/2:pi/10:pi/2);  
+x=a*cos(v).*cos(u);y=a*cos(v).*sin(u);z=b.*sin(v);
+mesh(x,y,z);
+view(-8,18);
+xlabel('X'),	ylabel('Y'), zlabel('Z'); 
+title('Эллипсоид вращения');
+subplot(1,3,2);
+xlabel('X'),	ylabel('Y'), zlabel('Z'); 
+surf(x,y,z);
+grid on;
+subplot(1,3,3);
+xlabel('X'),	ylabel('Y'), zlabel('Z'); 
+surfc(x,y,z);
+grid on;
+%%
+pause(2)                       %3h
+subplot(3,1,1); 
+a=1;b=1;
+[z,be]=meshgrid(0:0.3:5,0:pi/10:2*pi);
+r=(a*(z+b).^2).*log(z+b);
+x=r.*sin(be);y=r.*cos(be);
+mesh(x,y,z);
+view(-8,18);
+xlabel('X'),	ylabel('Y'), zlabel('Z'); 
+title('Гиперболо-логарифмическая функция');
+subplot(3,1,2);
+xlabel('X'),	ylabel('Y'), zlabel('Z'); 
+surf(x,y,z);
+grid on;
+subplot(3,1,3);
+xlabel('X'),	ylabel('Y'), zlabel('Z'); 
+surfc(x,y,z);
+grid on;
+
+%%
+pause(2);  %3i
+subplot(3,1,1);
+be=3; b=2;
+[z,r]=meshgrid(0:0.3:5,-0:pi/10:2*pi);
+x=r.*cos(be);
+y=r.*sin(be);
+z=b./r;    
+mesh(x,y,z);
+view(-8,18);
+xlabel('X'),	ylabel('Y'), zlabel('Z'); 
+title('Поверхность вращения параболы');
+subplot(3,1,2);
+xlabel('X'),	ylabel('Y'), zlabel('Z'); 
+surf(x,y,z);
+grid on;
+subplot(3,1,3);
+xlabel('X'),	ylabel('Y'), zlabel('Z'); 
+surfc(x,y,z);
+grid on;
+
+%%
+pause(2); %3j
+subplot(3,1,1);
+a=2;
+[u,v]=meshgrid(0:pi/10:2*pi,-pi/2:pi/10:pi/2);  
+x=a.*cos(u).*cos(v);
+y=a.*cos(u).*sin(v);
+z=sin(u-a);
+mesh(x,y,z);
+view(-8,18);
+xlabel('X'),	ylabel('Y'), zlabel('Z'); 
+title('Поверхность деформированной сферы');
+subplot(3,1,2);
+xlabel('X'),	ylabel('Y'), zlabel('Z'); 
+surf(x,y,z);
+grid on;
+subplot(3,1,3);
+xlabel('X'),	ylabel('Y'), zlabel('Z'); 
+surfc(x,y,z);
+grid on;
+
+%%
+a=2*pi; %4
+[X,Y]=meshgrid(-1:0.01:1,-1:0.01:1);
+R=sqrt(X.^2+Y.^2);
+f=(2*besselj(1,a*R(:))./R(:)).^2;
+mesh(X,Y,reshape(f,size(X)));
+set(gca,'Zscale','Log');
+
+%%
+[x,y,z]=meshgrid(-3:0.1:3); %5
+F=-(x.^2).*(z.^3)-9.*(y.^2).*(z.^3)./80+(x.^2+9.*y.^2/4+z.^2-1).^3;
+C=0;
+hpatch=patch(isosurface(x,y,z,F,C));
+isonormals(x,y,z,F,hpatch);
+set(hpatch,'FaceColor','red');
+view([-30,10]);
