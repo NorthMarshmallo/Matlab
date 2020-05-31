@@ -1,0 +1,180 @@
+%%
+a=0; b=2*pi;           %1a
+x=linspace(a,b,100);
+y=f(x);
+plot(x,y); grid on;
+xlabel('x'); ylabel('y'); title('exp(-u*x^2))*cos(x^2)');
+xr=ginput(2);
+[xm,ym]=fminbnd(@f,xr(1,1),xr(2,1));
+hold on;
+plot(xm,ym,'r*',xr(1,1),xr(1,2),'g*',xr(2,1),xr(2,2),'g*');
+hold off;
+
+%%
+global a1 b1
+a1=1;b1=1;
+a=0; b=2*pi/3;           %1b
+x=linspace(a,b,100);
+y=f1(x);
+plot(x,y); grid on;
+xlabel('x'); ylabel('y'); title('1/((a1*cos(x)+b1*sin(x))^2)');
+[xm,ym]=fminbnd(@f1,a,b);
+hold on;
+plot(xm,ym,'r*');
+hold off;
+
+%%
+a=0; b=4;           %1c
+x=linspace(a,b,100);
+y=f2(x);
+plot(x,y); grid on;
+xlabel('x'); ylabel('y'); title('2-abs(x)*exp(-abs(x-1))');
+[xm,ym]=fminbnd(@f2,a,b);
+hold on;
+plot(xm,ym,'r*');
+hold off;
+
+%%
+global m
+m=3;
+a=0; b=2*pi;           %1d
+x=linspace(a,b,100);
+y=f3(x);
+plot(x,y); grid on;
+xlabel('x'); ylabel('y'); title('sum((cos(i*x)-sin(i*x))^2)');
+[xm,ym]=fminbnd(@f3,a,b);
+hold on;
+plot(xm,ym,'r*');
+hold off;
+
+%%
+a=1;           %1
+f=fzero(@(x)x.^2-a,0.5);
+disp(f);
+
+%%
+a=-3;b=3;         %2
+x=linspace(a,b,100);
+f='x.^2+2*x-1-sin(x)';
+plot(x,eval(f),x,0*x,':'); grid on;
+z=ginput(1);
+[zr,fr]=fzero(f,z(1));
+hold on;
+plot(zr,fr,'r*',z(1),z(2),'g*');
+
+%%
+a=-3;b=3;         %3a
+x=linspace(a,b,100);
+f='sin(exp(x))';
+plot(x,eval(f),x,0*x,':'); grid on;
+z=ginput(1);
+[zr,fr]=fzero(f,z(1));
+hold on;
+plot(zr,fr,'r*',z(1),z(2),'g*');
+
+%%
+a=0;b=2*pi;         %3b
+x=linspace(a,b,100);
+f='sin(x.*(1-x))';
+plot(x,eval(f),x,0*x,':'); grid on;
+z=ginput(1);
+[zr,fr]=fzero(f,z(1));
+hold on;
+plot(zr,fr,'r*',z(1),z(2),'g*');
+
+%%
+a=0;b=4*pi;         %3c
+x=linspace(a,b,100);
+f='x.*sin(x)-cos(x)';
+plot(x,eval(f),x,0*x,':'); grid on;
+z=ginput(1);
+[zr,fr]=fzero(f,z(1));
+hold on;
+plot(zr,fr,'r*',z(1),z(2),'g*');
+
+%%
+f=fzero(@(x)x.^2+1,0);   %4
+disp(f);
+
+%%
+clear %5
+a=-1; b=1;
+x=linspace(a,b,100);
+f='cos(x)-exp(0.001+x.^2)';
+plot(x,eval(f),x,0*x,':'); grid on
+xlabel('x'); ylabel('y');
+z=ginput(1);
+[zr,fr]=fzero(f,z(1));
+hold on
+plot(zr,fr,'r*',z(1),z(2),'g*');
+
+syms x
+s=(cos(x)-exp(0.001+x.^2) == 0);
+D=vpasolve(s,x);
+disp(D);
+
+%%
+clear %кkorni1
+a=-5; b=5;
+m=50;
+x=linspace(a,b,m);
+h=0.001; iter=5; eps=0.001;
+f=@(x)1+x.*sin(x);
+y=f(x);
+plot(x,f(x),x,0*x,':'); grid on
+xlabel('x'); ylabel('y');
+hold on
+y_min=min(y); y_max=max(y);
+if y_min<0 y_min=1.1*y_min; else y_min=0.9*y_min; end;
+if y_max>0 y_max=1.1*y_max; else y_max=0.9*y_max; end;
+y_lim=([y_min,y_max]);
+z=ginput(1);
+x1=z(1);
+for i=1:iter
+    yh=(f(x1+h)-f(x1))/h;
+    x2=x1-f(x1)/yh;
+    P=plot(x,f(x1)+yh*(x-x1),':',x1,f(x1),'*',x2,0,'*',x2,f(x2),'o');
+    L=line([x2,x2],[0,f(x2)]);
+    set(L, 'LineStyle',':');
+    x1=x2;
+    if abs(f(x2))<eps break;
+    end
+    
+    pause
+    delete(P,L);
+end
+hold off
+'End Iteration'
+
+%%
+clear
+a=0; b=14;
+m=50;
+x=linspace(a,b,m);
+h=0.001; iter=5; eps=0.001;
+f=@(x)sin(x)./x;
+y=f(x);
+plot(x,f(x),x,0*x,':'); grid on
+xlabel('x'); ylabel('y');
+hold on
+y_min=min(y); y_max=max(y);
+if y_min<0 y_min=1.1*y_min; else y_min=0.9*y_min; end;
+if y_max>0 y_max=1.1*y_max; else y_max=0.9*y_max; end;
+y_lim=([y_min,y_max]);
+z=ginput(1);
+x1=z(1);
+for i=1:iter
+    yh=(f(x1+h)-f(x1))/h;
+    x2=x1-f(x1)/yh;
+    P=plot(x,f(x1)+yh*(x-x1),':',x1,f(x1),'*',x2,0,'*',x2,f(x2),'o');
+    L=line([x2,x2],[0,f(x2)]);
+    set(L, 'LineStyle',':');
+    x1=x2;
+    if abs(f(x2))<eps break;
+    end
+    
+    pause
+    delete(P,L);
+end
+hold off
+'End Iteration'
