@@ -1,0 +1,144 @@
+%%
+P=[1,-3.55,5.1,-3.1]; %1
+x=linspace(-100,100,500);
+F=polyval(P,x);
+plot(x,F); grid on;
+R=roots(P);
+disp(R);
+
+
+%%
+P=[2,-3,4,-5,6];  %2
+[q,r]=deconv(P,[1,-3,1]);
+disp(q);
+disp(r);
+
+P=[1,-3,-1,-1];
+[q,r]=deconv(P,[3,-2,1]);
+disp(q);
+disp(r);
+
+
+%%
+P=[1,-2,6,-10,16]; %3
+a=polyval(P,4);
+disp(a);
+F=polyder(P);
+f=polyval(F,4);
+disp(f);
+
+P=[1,1+2i,-1-3i,0,7];
+a=polyval(P,-2-1i);
+disp(a);
+F=polyder(P);
+f=polyval(F,-2-1i);
+disp(f);
+
+
+P=[1,-4,6,-8,10];
+a=polyval(P,2);
+disp(a);
+F=polyder(P);
+f=polyval(F,2);
+disp(f);
+
+
+P=[1,-3,-4,5i,-1];
+a=polyval(P,1+2i);
+disp(a);
+F=polyder(P);
+f=polyval(F,1+2i);
+disp(f);
+
+
+
+%%
+P=[1,0,0]; %5
+Q=conv([1,-1],[1,2]);
+S=conv(Q,[1,3]);
+[r,s,k]=residue(P,S); r',s',k';
+
+%%
+n=10;  %6.1
+%n=input()
+v=1:n;
+y=(1./v)';
+for i=1:n
+    x1=(v(i)^4);
+    for i1=n-2:-1:0
+        x1=[x1 v(i)^i1];
+    end
+    if i==1
+        x=x1;
+    else
+        x=[x;x1];
+    end
+end
+a=inv(x)*y;
+disp('Коэффициенты');
+disp(a);
+t=roots(p);
+disp('Корни полинома');
+disp(t);
+m=1+max(abs(a))/abs(max(t));
+x=linspace(-m,m,100);
+plot(x,polyval(p,x)); grid on;
+
+%%
+v=-1:1:3;   %6.2
+y=[6;5;0;3;2];
+for i=1:5
+    x1=(v(i)^4);
+    for i1=3:-1:0
+        x1=[x1 v(i)^i1];
+    end
+    if i==1
+        x=x1;
+    else
+        x=[x;x1];
+    end
+end
+a=inv(x)*y;
+disp('Коэффициенты');
+disp(a);
+t=roots(p);
+disp('Корни полинома');
+disp(t);
+m=1+max(abs(a))/abs(max(t));
+x=linspace(-m,m,100);
+plot(x,polyval(p,x)); grid on;
+
+%%
+p=[1,-6,15,-14];  %7
+t=roots(p);
+disp('7.Корни 1 полинома');
+disp(t);
+m=1+15/abs(max(t));
+x=linspace(-m,m,100);
+plot(x,polyval(p,x)); grid on;
+pause(1);
+p=[4 0 -7 -5 -1];
+t=roots(p);
+disp('7.Корни 2 полинома');
+disp(t);
+m=1+7/abs(max(t));
+x=linspace(-m,m,100);
+plot(x,polyval(p,x)); grid on;
+
+%%
+n=6;     %8
+%n=input();
+m=10*rand(n);
+p=poly(m);
+disp(polyval(p,m));
+
+%%
+k1=[1 1 1 1 1 1 1 1 1 1 1];
+k=(1);
+for i=1:9
+    k=[k k1];
+end
+p=poly(k);  %10
+t=roots(p);
+disp(t)
+plot(t,polyval(p,t));
