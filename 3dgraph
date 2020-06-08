@@ -166,8 +166,6 @@ xlabel('X'),	ylabel('Y'), zlabel('Z');
 surfc(x,y,z);
 grid on;
 
-ИСПРАВЛЕННОЕ НИЖЕ
-
 %%
 pause(2);  %3i
 subplot(3,1,1);
@@ -209,23 +207,23 @@ subplot(3,1,3);
 xlabel('X'),	ylabel('Y'), zlabel('Z'); 
 surfc(x,y,z);
 grid on;
-
-%%
 pause(2);
+%%
+subplot(1,1,1);
 a=2*pi; %4
 [X,Y]=meshgrid(-1:0.01:1,-1:0.01:1);
 R=sqrt(X.^2+Y.^2);
 f=(2*besselj(1,a*R(:))./R(:)).^2;
 mesh(X,Y,reshape(f,size(X)));
 set(gca,'Zscale','Log');
+pause(2);
 
 %%
-pause(2);
+clf;
+grid on;
 [x,y,z]=ndgrid(-3:0.1:3); %5
 F=-(x.^2).*(z.^3)-9*(y.^2).*(z.^3)/80+(x.^2+9*(y.^2)/4+z.^2-1).^3;
 C=0;
 hpatch=patch(isosurface(x,y,z,F,C));
 set(hpatch,'FaceColor','blue');
 view([-30,10]);
-
-
