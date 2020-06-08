@@ -166,18 +166,20 @@ xlabel('X'),	ylabel('Y'), zlabel('Z');
 surfc(x,y,z);
 grid on;
 
+ИСПРАВЛЕННОЕ НИЖЕ
+
 %%
 pause(2);  %3i
 subplot(3,1,1);
-be=3; b=2;
-[z,r]=meshgrid(0:0.3:5,-0:pi/10:2*pi);
+b=2;
+[r,be]=meshgrid(0:0.3:5,-0:pi/10:2*pi);
 x=r.*cos(be);
 y=r.*sin(be);
 z=b./r;    
 mesh(x,y,z);
 view(-8,18);
 xlabel('X'),	ylabel('Y'), zlabel('Z'); 
-title('Поверхность вращения параболы');
+title('Поверхность вращения гиперболы');
 subplot(3,1,2);
 xlabel('X'),	ylabel('Y'), zlabel('Z'); 
 surf(x,y,z);
@@ -190,10 +192,10 @@ grid on;
 %%
 pause(2); %3j
 subplot(3,1,1);
-a=2;
+a=1;
 [u,v]=meshgrid(0:pi/10:2*pi,-pi/2:pi/10:pi/2);  
-x=a.*cos(u).*cos(v);
-y=a.*cos(u).*sin(v);
+x=a*cos(u).*cos(v);
+y=a*cos(u).*sin(v);
 z=sin(u-a);
 mesh(x,y,z);
 view(-8,18);
@@ -209,6 +211,7 @@ surfc(x,y,z);
 grid on;
 
 %%
+pause(2);
 a=2*pi; %4
 [X,Y]=meshgrid(-1:0.01:1,-1:0.01:1);
 R=sqrt(X.^2+Y.^2);
@@ -217,10 +220,12 @@ mesh(X,Y,reshape(f,size(X)));
 set(gca,'Zscale','Log');
 
 %%
-[x,y,z]=meshgrid(-3:0.1:3); %5
-F=-(x.^2).*(z.^3)-9.*(y.^2).*(z.^3)./80+(x.^2+9.*y.^2/4+z.^2-1).^3;
+pause(2);
+[x,y,z]=ndgrid(-3:0.1:3); %5
+F=-(x.^2).*(z.^3)-9*(y.^2).*(z.^3)/80+(x.^2+9*(y.^2)/4+z.^2-1).^3;
 C=0;
 hpatch=patch(isosurface(x,y,z,F,C));
-isonormals(x,y,z,F,hpatch);
-set(hpatch,'FaceColor','red');
+set(hpatch,'FaceColor','blue');
 view([-30,10]);
+
+
