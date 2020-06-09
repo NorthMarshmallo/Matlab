@@ -93,22 +93,66 @@ plot(xm,ym,'r*');
 hold off;
 
 %%
-x=0:0.01:1;
+% function y=ff(x)
+% global b
+% y=x.^b.*log(x);
+% end
+
+a=[2 4 8 12 18];   %2a
+n=length(a);
+x=linspace(0,1,100);
+global b
+for i=1:n
 hold on
-for a=2:2:18
-    f=@(x)x.^a.*log(x);
-    plot(x,f(x));
-    [xm,ym]=fminbnd(f,a,b);
-    plot(xm,ym,'r*');
+y=x.^a(i).*log(x);
+plot(x,y); grid on
+b=a(i);
+[x_m,y_m]=fminbnd(@ff,0,1);
+plot(x_m,y_m,'r*');
 end
-hold off
 
 %%
-f=@(x)x.^4.*log(x);
-    plot(x,f(x));
-    [xm,ym]=fminbnd(f,a,b);
-    disp(xm);
-    plot(xm,ym,'r*');
+% function y=f10(x)
+% global q w
+% y=x.^(q)*exp(-w.*x);
+% end
+
+a=[2 4 8 12 16];  %2b
+b=[0 1 2 3 4];
+n=length(a);
+x=linspace(0,1,100);
+global q w
+for i=1:n
+hold on
+y=x.^(a(i)).*exp(-b(i).*x);
+plot(x,y); grid on
+q=a(i);w=b(i);
+[x_m,y_m]=fminbnd(@f10,-1,1);
+plot(x_m,y_m,'r*');
+end
+hold off;
+
+%%
+% function y=fff(x)
+% global q w
+% y=(x.^(q)).*(1-x).^w;
+% end
+
+a=[2 4 8 12 16];  %2c
+b=[0 0.01 0.02 0.03 0.04];
+n=length(a);
+x=linspace(0,1,100);
+global q w
+for i=1:n
+hold on
+y=(x.^(a(i))).*(1-x).^b(i);
+plot(x,y); grid on
+q=a(i);w=b(i);
+[x_m,y_m]=fminbnd(@f10,-10,1);
+plot(x_m,y_m,'r*');
+end
+hold off;
+ 
 %%
 a=1;           %1
 f=fzero(@(x)x.^2-a,0.5);
@@ -220,10 +264,11 @@ for i=1:iter
     pause
     delete(P,L);
 end
-hold off
-'End Iteration'
+hold off;
+'End Iteration';
 
 %%
+%korni2
 a=0; b=14;
 m=50;
 x=linspace(a,b,m);
@@ -252,5 +297,5 @@ for i=1:iter
     pause
     delete(P,L);
 end
-hold off
-'End Iteration'
+hold off;
+'End Iteration';
