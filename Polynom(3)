@@ -3,9 +3,11 @@ P=[1,-3.55,5.1,-3.1]; %1
 x=linspace(-100,100,500);
 F=polyval(P,x);
 plot(x,F); grid on;
-R=roots(P);
-disp(R);
-
+xr=ginput(1);
+hold on
+plot(xr(1,1),xr(1,2),'r*');
+disp(xr);
+hold off
 
 %%
 P=[2,-3,4,-5,6];  %2
@@ -43,20 +45,51 @@ f=polyval(F,2);
 disp(f);
 
 
-P=[1,-3,-4,5i,-1];
+P=[1,-3i,-4,5i,-1];
 a=polyval(P,1+2i);
 disp(a);
 F=polyder(P);
 f=polyval(F,1+2i);
 disp(f);
 
-
+%%
+syms x n;     %4
+p1=x.^(2*n)-n*x.^(n+1)+n*x.^(n-1)-1;
+%n=input()=5
+p=sym2poly(subs(p1,n,4));
+v=unique(roots(p));
+disp(v);
+m=max(abs(v));
+x=-m:0.01:m;
+f=polyval(p,x);
+plot(x,f); grid on;
 
 %%
+disp('1');
 P=[1,0,0]; %5
 Q=conv([1,-1],[1,2]);
 S=conv(Q,[1,3]);
-[r,s,k]=residue(P,S); r',s',k';
+[r,s,k]=residue(P,S); 
+disp(r');
+disp(s');
+disp(k');
+
+disp('2');
+
+P=[1,3]; 
+S=conv([1,0,1],[1,-1]);
+[r,s,k]=residue(P,S); 
+disp(r');
+disp(s');
+disp(k');
+
+disp('3');
+
+P=[1,0,0]; 
+[r,s,k]=residue(P,[1,0,0,-1]); 
+disp(r');
+disp(s');
+disp(k');
 
 %%
 n=10;  %6.1
@@ -64,7 +97,7 @@ n=10;  %6.1
 v=1:n;
 y=(1./v)';
 for i=1:n
-    x1=(v(i)^4);
+    x1=(v(i)^(n-i));
     for i1=n-2:-1:0
         x1=[x1 v(i)^i1];
     end
@@ -77,18 +110,18 @@ end
 a=inv(x)*y;
 disp('Коэффициенты');
 disp(a);
-t=roots(p);
+t=roots(a);
 disp('Корни полинома');
 disp(t);
 m=1+max(abs(a))/abs(max(t));
 x=linspace(-m,m,100);
-plot(x,polyval(p,x)); grid on;
+plot(x,polyval(a,x)); grid on;
 
 %%
 v=-1:1:3;   %6.2
 y=[6;5;0;3;2];
 for i=1:5
-    x1=(v(i)^4);
+    x1=(v(i)^(n-i));
     for i1=3:-1:0
         x1=[x1 v(i)^i1];
     end
@@ -107,13 +140,12 @@ disp(t);
 m=1+max(abs(a))/abs(max(t));
 x=linspace(-m,m,100);
 plot(x,polyval(p,x)); grid on;
-
 %%
 p=[1,-6,15,-14];  %7
 t=roots(p);
 disp('7.Корни 1 полинома');
 disp(t);
-m=1+15/abs(max(t));
+m=1+max(abs(p))/abs(max(t));
 x=linspace(-m,m,100);
 plot(x,polyval(p,x)); grid on;
 pause(1);
@@ -121,16 +153,41 @@ p=[4 0 -7 -5 -1];
 t=roots(p);
 disp('7.Корни 2 полинома');
 disp(t);
-m=1+7/abs(max(t));
+m=1+max(abs(p))/abs(max(t));
 x=linspace(-m,m,100);
 plot(x,polyval(p,x)); grid on;
 
 %%
-n=6;     %8
+n=3;     %8
 %n=input();
 m=10*rand(n);
+disp(m);
 p=poly(m);
-disp(polyval(p,m));
+disp(p);
+disp(polyvalm(p,m));
+
+%%
+p=[1 2 -1 -4 -2];    %9.1
+q=[1 1 -1 -2 -2];
+[n,u,v] = gcd(p,q);
+disp('НОД:');
+disp(n);
+disp('u*g+v*f=НОД');
+disp('u:');
+disp(u);
+disp('v:');
+disp(v);
+
+p=[1 3 1 1 3 1];    %9.2
+q=[0 1 2 0 1 2];
+[n,u,v] = gcd(p,q);
+disp('НОД:');
+disp(n);
+disp('u*g+v*f=НОД');
+disp('u:');
+disp(u);
+disp('v:');
+disp(v);
 
 %%
 k1=[1 1 1 1 1 1 1 1 1 1 1];
