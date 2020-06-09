@@ -109,6 +109,7 @@ title('График и приближения')
 %f=-exp(1./(1-x.^2))./(1+x.^2);
 %end
 
+%%
 a=-7; b=7;      %7         
 x=linspace(a,b,100);
 y=f4(x);
@@ -117,9 +118,22 @@ ylim([-10;350])
 xlabel('x'); ylabel('y'); title('f=exp(1/(1-x.^2))/(1+x.^2)');
 [xm,ym]=fminbnd(@f4,a,b);
 [xmax, ymax]=fminbnd(@f5,a,b);
+syms x;
+f=exp(1./(1-x.^2))./(1+x.^2)
+f2 = diff(diff(f));
+inflec_pt = solve(f2,'MaxDegree',3);
+double(inflec_pt);
+idx = imag(double(inflec_pt)) == 0;
+inflec_pt = inflec_pt(idx);
 hold on;
 plot(xm,ym,'r*');
 plot(xmax,-ymax,'b*');
+plot(double(inflec_pt), double(subs(f,inflec_pt)),'ro')
+as=limit(f,Inf);
+for i=1:length(as)
+    disp(as(i));
+    yline(double(as(i)),'g');
+end
 xline(1,'g');
 xline(-1,'g');
 hold off;
